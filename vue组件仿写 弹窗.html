@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <link rel="stylesheet" type="text/css" href="./fontFace.css">
+    <script type="text/javascript" src="https://unpkg.com/vue@2.4.1"></script>
+    <style>
+        .modal{
+            border: 1px solid black;
+            text-align: left;
+            display: inline-block;
+            vertical-align: middle;
+            background-color: rgb(255, 255, 255);
+            width: 420px;
+            font-size: 16px;
+            backface-visibility: hidden;
+            border-radius: 3px;
+            overflow: hidden; 
+        }
+        .modal-header{
+            position: relative;
+            padding: 0px 20px 0px;
+            margin-bottom: 0px;
+            font-size: 16px;
+            font-weight: 700;
+            height: 18px;
+            color: rgb(51, 51, 51);
+        }
+        .modal-content{
+            color: rgb(72, 87, 106);
+            font-size: 14px;
+            position: relative;
+            padding: 30px 20px;
+        }
+        .modal-footer{
+            text-align: right;
+            padding: 10px 20px 15px;
+        }
+        .btn{
+                display: inline-block;
+                line-height: 1;
+                white-space: nowrap;
+                cursor: pointer;
+                color: rgb(31, 45, 61);
+                -webkit-appearance: none;
+                text-align: center;
+                box-sizing: border-box;
+                user-select: none;
+                font-size: 14px;
+                background: rgb(255, 255, 255);
+                border-width: 1px;
+                border-style: solid;
+                border-image: initial;
+                border-color: rgb(196, 196, 196);
+                outline: none;
+                margin: 0px;
+                padding: 10px 15px;
+                border-radius: 4px;
+        }
+        .blue{
+            color: rgb(255, 255, 255);
+            background-color: rgb(32, 160, 255);
+            border-color: rgb(32, 160, 255);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <modal @ok="ok"></modal>
+        <modal>
+            <template  slot="modal-content">
+                <span>123123123</span>
+            <span>123123123</span>
+            <span>123123123</span>
+            </template>
+            
+        </modal>
+        <modal></modal>
+        
+    </div>
+   
+    <script>
+        Vue.component('modal',{
+            template:`  <div class="modal">
+                            <div class="modal-header">
+                                <h4>{{title}}</h4>
+                            </div>
+                            <div class="modal-content">
+                                <slot name="modal-content">
+                                    <div>标题内容</div>
+                                </slot>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" value="确定" class="btn blue" @click="okHandler">
+                                <input type="button" value="取消" class="btn" @click="noHandler">
+                            </div> 
+                        </div>                                   
+            `,
+            props:{
+                title:{
+                    type:String,
+                    default:"标题头"
+                }
+            },
+            methods:{
+                okHandler(){
+                    return this.$emit('ok')
+                },
+                noHandler(){
+                    return this.$emit('no')
+                }
+            }
+
+        })
+        new Vue({
+            el:"#app",
+            methods:{
+                ok(){
+                    alert('ok')
+                },
+                no(){
+                    alert('no')
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
